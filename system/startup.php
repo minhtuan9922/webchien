@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 
 // Check Version
-if (version_compare(phpversion(), '7.0.0', '<')) {
-	exit('PHP7+ Required');
+if (version_compare(phpversion(), '5.4.0', '<') == true) {
+	exit('PHP5.4+ Required');
 }
 
 if (!ini_get('date.timezone')) {
@@ -67,7 +67,7 @@ function modification($filename) {
 }
 
 // Autoloader
-if (defined('DIR_STORAGE') && is_file(DIR_STORAGE . 'vendor/autoload.php')) {
+if (is_file(DIR_STORAGE . 'vendor/autoload.php')) {
 	require_once(DIR_STORAGE . 'vendor/autoload.php');
 }
 

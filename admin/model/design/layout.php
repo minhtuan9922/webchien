@@ -1,7 +1,7 @@
 <?php
 class ModelDesignLayout extends Model {
 	public function addLayout($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "layout SET name = '" . $this->db->escape((string)$data['name']) . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "layout SET name = '" . $this->db->escape($data['name']) . "'");
 
 		$layout_id = $this->db->getLastId();
 
@@ -21,7 +21,7 @@ class ModelDesignLayout extends Model {
 	}
 
 	public function editLayout($layout_id, $data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "layout SET name = '" . $this->db->escape((string)$data['name']) . "' WHERE layout_id = '" . (int)$layout_id . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "layout SET name = '" . $this->db->escape($data['name']) . "' WHERE layout_id = '" . (int)$layout_id . "'");
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "layout_route WHERE layout_id = '" . (int)$layout_id . "'");
 
@@ -89,13 +89,13 @@ class ModelDesignLayout extends Model {
 		return $query->rows;
 	}
 
-	public function getRoutes($layout_id) {
+	public function getLayoutRoutes($layout_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "layout_route WHERE layout_id = '" . (int)$layout_id . "'");
 
 		return $query->rows;
 	}
 
-	public function getModules($layout_id) {
+	public function getLayoutModules($layout_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "layout_module WHERE layout_id = '" . (int)$layout_id . "' ORDER BY position ASC, sort_order ASC");
 
 		return $query->rows;

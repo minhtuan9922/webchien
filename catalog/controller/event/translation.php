@@ -1,15 +1,15 @@
 <?php
 class ControllerEventTranslation extends Controller {
-	public function index(&$route, &$prefix) {
+	public function index(&$route, &$key) {
 		$this->load->model('design/translation');
-
+		
 		$results = $this->model_design_translation->getTranslations($route);
-
+		
 		foreach ($results as $result) {
-			if (!$prefix) {
+			if (!$key) {
 				$this->language->set($result['key'], $result['value']);
 			} else {
-				$this->language->set($prefix . '_' . $result['key'], $result['value']);
+				$this->language->get($key)->set($result['key'], $result['value']);
 			}
 		}	
 	}

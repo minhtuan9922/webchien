@@ -60,13 +60,13 @@ class ModelCatalogFilter extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "filter_description` WHERE filter_group_id = '" . (int)$filter_group_id . "'");
 	}
 
-	public function getGroup($filter_group_id) {
+	public function getFilterGroup($filter_group_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN " . DB_PREFIX . "filter_group_description fgd ON (fg.filter_group_id = fgd.filter_group_id) WHERE fg.filter_group_id = '" . (int)$filter_group_id . "' AND fgd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
 
-	public function getGroups($data = array()) {
+	public function getFilterGroups($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN " . DB_PREFIX . "filter_group_description fgd ON (fg.filter_group_id = fgd.filter_group_id) WHERE fgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
@@ -103,7 +103,7 @@ class ModelCatalogFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getGroupDescriptions($filter_group_id) {
+	public function getFilterGroupDescriptions($filter_group_id) {
 		$filter_group_data = array();
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter_group_description WHERE filter_group_id = '" . (int)$filter_group_id . "'");
@@ -125,7 +125,7 @@ class ModelCatalogFilter extends Model {
 		$sql = "SELECT *, (SELECT name FROM " . DB_PREFIX . "filter_group_description fgd WHERE f.filter_group_id = fgd.filter_group_id AND fgd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS `group` FROM " . DB_PREFIX . "filter f LEFT JOIN " . DB_PREFIX . "filter_description fd ON (f.filter_id = fd.filter_id) WHERE fd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND fd.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+			$sql .= " AND fd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
 		$sql .= " ORDER BY f.sort_order ASC";
@@ -147,7 +147,7 @@ class ModelCatalogFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getDescriptions($filter_group_id) {
+	public function getFilterDescriptions($filter_group_id) {
 		$filter_data = array();
 
 		$filter_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "filter WHERE filter_group_id = '" . (int)$filter_group_id . "'");
@@ -171,7 +171,7 @@ class ModelCatalogFilter extends Model {
 		return $filter_data;
 	}
 
-	public function getTotalGroups() {
+	public function getTotalFilterGroups() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "filter_group`");
 
 		return $query->row['total'];

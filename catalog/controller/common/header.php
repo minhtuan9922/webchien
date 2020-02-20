@@ -1,12 +1,6 @@
 <?php
 class ControllerCommonHeader extends Controller {
 	public function index() {
-		//$test = 200;
-
-		//$this->load->controller('common/language', $test);
-
-		//echo $test;
-
 		// Analytics
 		$this->load->model('setting/extension');
 
@@ -20,13 +14,19 @@ class ControllerCommonHeader extends Controller {
 			}
 		}
 
+		if ($this->request->server['HTTPS']) {
+			$server = $this->config->get('config_ssl');
+		} else {
+			$server = $this->config->get('config_url');
+		}
+
 		if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
-			$this->document->addLink($this->config->get('config_url') . 'image/' . $this->config->get('config_icon'), 'icon');
+			$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');
 		}
 
 		$data['title'] = $this->document->getTitle();
 
-		$data['base'] = $this->config->get('config_url');
+		$data['base'] = $server;
 		$data['description'] = $this->document->getDescription();
 		$data['keywords'] = $this->document->getKeywords();
 		$data['links'] = $this->document->getLinks();
@@ -36,9 +36,11 @@ class ControllerCommonHeader extends Controller {
 		$data['direction'] = $this->language->get('direction');
 
 		$data['name'] = $this->config->get('config_name');
+		$data['address'] = $this->config->get('config_address');
+		$data['image'] = $server . 'image/' . $this->config->get('config_image');
 
 		if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
-			$data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');
+			$data['logo'] = $server . 'image/' . $this->config->get('config_logo');
 		} else {
 			$data['logo'] = '';
 		}
@@ -54,24 +56,66 @@ class ControllerCommonHeader extends Controller {
 			$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
 		}
 
-		$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', 'language=' . $this->config->get('config_language')), $this->customer->getFirstName(), $this->url->link('account/logout', 'language=' . $this->config->get('config_language')));
+		$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
+        
+        // Menu
+		$this->load->model('catalog/category');
 
-		$data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
-		$data['wishlist'] = $this->url->link('account/wishlist', 'language=' . $this->config->get('config_language'));
+		$this->load->model('catalog/product');
+        $this->load->model('tool/image');
+
+		$data['categories'] = array();
+
+		$categories = $this->model_catalog_category->getCategories(0);
+
+		foreach ($categories as $category) {
+			if ($category['top']) {
+				// Level 2
+				$children_data = array();
+
+				$children = $this->model_catalog_category->getCategories($category['category_id']);
+
+				foreach ($children as $child) {
+					$filter_data = array(
+						'filter_category_id'  => $child['category_id'],
+						'filter_sub_category' => true
+					);
+
+					$children_data[] = array(
+						'name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+					);
+				}
+
+				// Level 1
+				$data['categories'][] = array(
+					'name'     => $category['name'],
+					'children' => $children_data,
+					'column'   => $category['column'] ? $category['column'] : 1,
+					'href'     => $this->url->link('product/category', 'path=' . $category['category_id']),
+                    'image'    => $this->model_tool_image->resize($category['image'], 20, 20),
+				);
+			}
+		}
+		
+		$data['home'] = $this->url->link('common/home');
+		$data['wishlist'] = $this->url->link('account/wishlist', '', true);
 		$data['logged'] = $this->customer->isLogged();
-		$data['account'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
-		$data['register'] = $this->url->link('account/register', 'language=' . $this->config->get('config_language'));
-		$data['login'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'));
-		$data['order'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));
-		$data['transaction'] = $this->url->link('account/transaction', 'language=' . $this->config->get('config_language'));
-		$data['download'] = $this->url->link('account/download', 'language=' . $this->config->get('config_language'));
-		$data['logout'] = $this->url->link('account/logout', 'language=' . $this->config->get('config_language'));
-		$data['shopping_cart'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'));
-		$data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
-		$data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
+		$data['account'] = $this->url->link('account/account', '', true);
+		$data['register'] = $this->url->link('account/register', '', true);
+		$data['login'] = $this->url->link('account/login', '', true);
+		$data['order'] = $this->url->link('account/order', '', true);
+		$data['transaction'] = $this->url->link('account/transaction', '', true);
+		$data['download'] = $this->url->link('account/download', '', true);
+		$data['logout'] = $this->url->link('account/logout', '', true);
+		$data['shopping_cart'] = $this->url->link('checkout/cart');
+		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
+		$data['contact'] = $this->url->link('information/contact');
 		$data['telephone'] = $this->config->get('config_telephone');
-
-		$data['cookie'] = $this->load->controller('common/cookie');
+        $data['special'] = $this->url->link('product/special', '', true);
+        $data['news'] = $this->url->link('extension/d_blog_module/category', '', true);
+        $data['aboutus'] = $this->url->link('information/information&information_id=4', '', true);
+		
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
 		$data['search'] = $this->load->controller('common/search');

@@ -6,10 +6,10 @@ define('HTTP_SERVER', 'http://localhost/webchien/');
 define('HTTPS_SERVER', 'http://localhost/webchien/');
 
 // DIR
-define('DIR_APPLICATION', 'C:/xampp/htdocs/webchien/catalog/');
-define('DIR_SYSTEM', 'C:/xampp/htdocs/webchien/system/');
-define('DIR_IMAGE', 'C:/xampp/htdocs/webchien/image/');
-define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
+define('DIR_APPLICATION', $_SERVER['DOCUMENT_ROOT'].'/webchien/catalog/');
+define('DIR_SYSTEM', $_SERVER['DOCUMENT_ROOT'].'/webchien/system/');
+define('DIR_IMAGE', $_SERVER['DOCUMENT_ROOT'].'/webchien/image/');
+define('DIR_STORAGE', $_SERVER['DOCUMENT_ROOT'].'/webchien/storage/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/theme/');
 define('DIR_CONFIG', DIR_SYSTEM . 'config/');

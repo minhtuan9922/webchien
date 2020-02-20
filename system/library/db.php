@@ -79,7 +79,7 @@ class DB {
 	 * 
 	 * @return	bool
      */	
-	public function isConnected() {
-		return $this->adaptor->isConnected();
+	public function connected() {
+		return $this->adaptor->connected();
 	}
 }

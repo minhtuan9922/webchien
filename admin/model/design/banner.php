@@ -1,7 +1,7 @@
 <?php
 class ModelDesignBanner extends Model {
 	public function addBanner($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "banner SET name = '" . $this->db->escape((string)$data['name']) . "', status = '" . (int)$data['status'] . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "banner SET name = '" . $this->db->escape($data['name']) . "', status = '" . (int)$data['status'] . "'");
 
 		$banner_id = $this->db->getLastId();
 
@@ -17,7 +17,7 @@ class ModelDesignBanner extends Model {
 	}
 
 	public function editBanner($banner_id, $data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "banner SET name = '" . $this->db->escape((string)$data['name']) . "', status = '" . (int)$data['status'] . "' WHERE banner_id = '" . (int)$banner_id . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "banner SET name = '" . $this->db->escape($data['name']) . "', status = '" . (int)$data['status'] . "' WHERE banner_id = '" . (int)$banner_id . "'");
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "banner_image WHERE banner_id = '" . (int)$banner_id . "'");
 
@@ -78,7 +78,7 @@ class ModelDesignBanner extends Model {
 		return $query->rows;
 	}
 
-	public function getImages($banner_id) {
+	public function getBannerImages($banner_id) {
 		$banner_image_data = array();
 
 		$banner_image_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "banner_image WHERE banner_id = '" . (int)$banner_id . "' ORDER BY sort_order ASC");
