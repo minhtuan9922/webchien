@@ -48,9 +48,9 @@
 {# <script data-ad-client="ca-pub-2882504649631672" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> #}
 </head>
 <body>
-    <nav id="top">
+    {# <nav id="top">
         <div class="container">{{ currency }}
-            {# {{ language }}
+            {{ language }}
             <div id="top-links" class="nav pull-right">
                 <ul class="list-inline">
                     <li><a href="{{ contact }}"><i class="fa fa-phone"></i></a> <span class="hidden-xs hidden-sm hidden-md">{{ telephone }}</span></li>
@@ -72,7 +72,7 @@
                     <li><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_shopping_cart }}</span></a></li>
                     <li><a href="{{ checkout }}" title="{{ text_checkout }}"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_checkout }}</span></a></li>
                 </ul>
-            </div> #}
+            </div>
             <div class="row">
                 <div class="col-lg-2">
                     <div class="logo">
@@ -97,17 +97,17 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> #}
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark nav-bg">
+        <nav class="navbar navbar-expand-lg nav-bg fixed-top">
             <div class="container">
-                {# {% if logo %}
+                {% if logo %}
                 <a class="navbar-brand logo" href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}"></a>
-<!--                <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>-->
+                <!-- <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a> -->
                 {% else %}
                 <a class="navbar-brand logo" href="{{ home }}">{{ name }}</a>
-<!--                <h4><a href="{{ home }}">{{ name }}</a></h4>-->
-                {% endif %} #}
+                <!-- <h4><a href="{{ home }}">{{ name }}</a></h4> -->
+                {% endif %}
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -115,13 +115,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ home }}">TRANG CHỦ</a>
+                            <a class="nav-link" href="{{ home }}">TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ aboutus }}">GIỚI THIỆU</a>
+                            <a class="nav-link" href="{{ aboutus }}">GIỚI THIỆU</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DANH MỤC</a>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DANH MỤC</a>
                             <div class="dropdown-menu menu-drop" aria-labelledby="navbarDropdown">
                                 {% if categories %}
                                 {% for category in categories %}
@@ -133,7 +133,7 @@
                                 {% endfor %}
                                 {% endif %}
                             </div>
-                        </li>
+                        </li> -->
 <!--
                         <li class="nav-item">
                             <a class="nav-link" href="{{ special }}">Khuyễn mãi</a>
@@ -146,8 +146,8 @@
                             <a class="nav-link text-white" href="{{ contact }}">LIÊN HỆ</a>
                         </li>
                     </ul>
-                    {{ search }}
-                    <ul class="navbar-nav ml-auto">
+                    <!-- {{ search }} -->
+                    <!-- <ul class="navbar-nav ml-auto">
                         {{ cart }}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ login }}">ĐĂNG NHẬP</a>
@@ -155,29 +155,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ register }}">ĐĂNG KÝ</a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>
     </header>
     {# {{ menu }} #}
-<!--
-    <div class="container">
-        <div class="menu">
-            <ul>
-                <li><a href="#">dkfkd</a></li>
-                <li><a href="#">dkfkd</a></li>
-                <li>
-                    <div>
-                        <ul>
-                            <li><a href="">kfslkdf</a></li>
-                            <li><a href="">kfslkdf</a></li>
-                            <li><a href="">kfslkdf</a></li>
-                            <li><a href="">kfslkdf</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
--->
+

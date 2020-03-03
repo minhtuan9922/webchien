@@ -154,6 +154,13 @@ header {
 #logo a {
     color: #FFFFFF;
 }
+.logo {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.logo img {
+	height: 38px;
+}
 /* search */
 #search {
 	margin-bottom: 10px;
@@ -801,7 +808,8 @@ h2.price {
     color: #FFFFFF;    
 }
 .nav-bg {
-    background-color: #4eac42;
+	background-color: #ffffff;
+	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
 }
 .menu-home {
     margin: 0;
@@ -1050,4 +1058,18 @@ footer .copyright {
 }
 footer .copyright p {
     margin-bottom: 0;
+}
+.text-bold {
+	font-weight: bold;
+}
+.form-register .required label::after {
+	content: ' *';
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
+.form-register label {
+	font-size: 18px;
+	color: #000000;
+	font-weight: bold;
 }
