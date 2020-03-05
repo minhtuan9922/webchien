@@ -361,9 +361,9 @@ header {
 }
 /* footer */
 footer {
-	margin-top: 30px;
+	/* margin-top: 30px;
 	padding-top: 30px;
-	background-color: #28821d;
+	background-color: #28821d; */
 	color: #e2e2e2;
 }
 footer hr {

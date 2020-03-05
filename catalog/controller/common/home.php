@@ -348,6 +348,61 @@ class ControllerCommonHome extends Controller {
 
         $data['category_id'] = $category_id;
 
+        //categories
+        $data['categories'] = array();
+        $categories = $this->model_extension_d_blog_module_category->getCategories($category_id);
+        if ($this->setting['category']['sub_category_display']) {
+
+            // subcategory
+            foreach ($categories as $category) {
+                $filter_data = array('filter_category_id' => $category['category_id'], 'filter_sub_category' => true);
+
+                if ($category['image']) {
+                    $thumb = $this->model_tool_image->resize($category['image'], $this->setting['category']['sub_category_image_width'], $this->setting['category']['sub_category_image_height']);
+                } else {
+                    $thumb = $this->model_tool_image->resize('placeholder.png', $this->setting['category']['sub_category_image_width'], $this->setting['category']['sub_category_image_height']);
+                }
+
+                //posts
+                $limit = 6;
+                $data['posts'] = array();
+                // if ($category_id == $this->setting['category']['main_category_id']) {
+                //     $filter_data = array('limit' => $limit, 'start' => ($page - 1) * $limit,);
+                // } else {
+                $filter_data = array('filter_category_id' => $category['category_id'], 'limit' => $limit, 'start' => ($page - 1) * $limit,);
+                // }
+                $post_total = $this->model_extension_d_blog_module_post->getTotalPosts($filter_data);
+                $posts = $this->model_extension_d_blog_module_post->getPosts($filter_data);
+
+                $new_row = false;
+                if ($posts) {
+                    $post_thumb = $this->setting['post_thumb'];
+                    $data['post_thumb'] = $post_thumb;
+
+
+                    foreach ($posts as $post) {
+
+                        $data['posts'][] = array(
+                            'post'      => $this->load->controller('extension/d_blog_module/post/thumb', $post['post_id']),
+                            'animate'   => $this->setting['post_thumb']['animate'],
+                        );
+                    }
+                }
+                $data['limit_post'] = count($posts);
+
+                $data['categories'][] = array(
+                    'thumb' => $thumb,
+                    'title' => $category['title'] . ($this->setting['category']['sub_category_post_count'] ? ' (' . $this->model_extension_d_blog_module_post->getTotalPostsByCategoryId($category['category_id']) . ')' : ''),
+                    'href'  => $this->url->link('extension/d_blog_module/category', 'category_id=' . $category['category_id'], 'SSL'),
+                    'col'   => ($this->setting['category']['sub_category_col']) ? round(12 / $this->setting['category']['sub_category_col']) : 12,
+                    'posts' => $data['posts'],
+                );
+            }
+        }
+        // echo '<pre>';
+        // print_r($data['categories']);
+        // echo '</pre>';
+
 //        $data['description'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
 //        $data['text_categories'] = $this->language->get('text_categories');
 //        $data['text_tags'] = $this->language->get('text_tags');
@@ -358,33 +413,6 @@ class ControllerCommonHome extends Controller {
 //        $data['button_continue'] = $this->language->get('button_continue');
 //        $data['continue'] = $this->url->link('common/home', '', 'SSL');
         
-        //posts
-        $limit = 5;
-        $data['posts'] = array();
-        if ($category_id == $this->setting['category']['main_category_id']) {
-            $filter_data = array('limit' => $limit, 'start' => ($page - 1) * $limit,);
-        } else {
-            $filter_data = array('filter_category_id' => $category_id, 'limit' => $limit, 'start' => ($page - 1) * $limit,);
-        }
-        $post_total = $this->model_extension_d_blog_module_post->getTotalPosts($filter_data);
-        $posts = $this->model_extension_d_blog_module_post->getPosts($filter_data);
-
-        $new_row = false;
-        if ($posts) {
-            $post_thumb = $this->setting['post_thumb'];
-            $data['post_thumb'] = $post_thumb;
-
-
-            foreach ($posts as $post) {
-
-                $data['posts'][] = array(
-                    'post'      => $this->load->controller('extension/d_blog_module/post/thumb', $post['post_id']),
-                    'animate'   => $this->setting['post_thumb']['animate'],
-                );
-            }
-        }
-        $data['limit_post'] = count($posts);
-        
         $data['news'] = $this->url->link('extension/d_blog_module/category', '', true);
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -394,5 +422,55 @@ class ControllerCommonHome extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 
 		$this->response->setOutput($this->load->view('common/home', $data));
-	}
+    }
+    public function add_register()
+    {
+        $json = array();
+
+        if(isset($this->request->post['yourname']) && $this->request->post['yourname'] != '')
+        {
+            $yourname = $this->request->post['yourname'];
+        }
+        else
+        {
+            $json['error_yourname'] = 'Nhập tên của bạn!';
+        }
+
+        if(isset($this->request->post['telephone']) && $this->request->post['telephone'] != '')
+        {
+            $telephone = $this->request->post['telephone'];
+        }
+        else
+        {
+            $json['error_telephone'] = 'Nhập số điện thoại của bạn!';
+        }
+
+        if(isset($this->request->post['identity_card']) && $this->request->post['identity_card'] != '')
+        {
+            $identity_card = $this->request->post['identity_card'];
+        }
+        else
+        {
+            $json['error_identity_card'] = 'Nhập số CMND của bạn!';
+        }
+
+        if(isset($this->request->post['address']) && $this->request->post['address'] != '')
+        {
+            $address = $this->request->post['address'];
+        }
+        else
+        {
+            $json['error_address'] = 'Nhập địa chỉ của bạn';
+        }
+
+        if(empty($json))
+        {
+            $this->load->model('account/customer');
+            $this->model_account_customer->add_register($this->request->post);
+            $json['success'] = 'Gửi thông tin thành công.';
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+    }
 }

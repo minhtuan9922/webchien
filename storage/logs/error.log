@@ -97,3 +97,29 @@
 2019-08-26 17:29:28 - PHP Notice:  Undefined variable: sort in C:\xampp\htdocs\webmypham\catalog\controller\common\home.php on line 288
 2019-08-26 17:29:28 - PHP Notice:  Undefined variable: order in C:\xampp\htdocs\webmypham\catalog\controller\common\home.php on line 289
 2019-08-26 17:29:28 - PHP Notice:  Undefined variable: page in C:\xampp\htdocs\webmypham\catalog\controller\common\home.php on line 290
+2020-03-03 17:13:53 - PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\xampp\htdocs\webchien\system\library\db\mysqli.php on line 45
+2020-03-03 17:14:50 - PHP Warning:  mysqli::real_escape_string() expects parameter 1 to be string, array given in C:\xampp\htdocs\webchien\system\library\db\mysqli.php on line 45
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:06:52 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 369
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:10:28 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:11:45 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396
+2020-03-05 13:15:10 - PHP Notice:  Undefined variable: url in C:\xampp\htdocs\webchien\catalog\controller\common\home.php on line 396

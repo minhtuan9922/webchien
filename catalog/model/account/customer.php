@@ -148,5 +148,10 @@ class ModelAccountCustomer extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
 		return $query->row;
-	}			
+	}	
+	public function add_register($data)
+	{
+		$sql = "insert into " . DB_PREFIX . "register set yourname = '". $this->db->escape($data['yourname']) ."', telephone = '". $this->db->escape($data['telephone']) ."', identity_card = '". $this->db->escape($data['identity_card']) ."', address = '". $this->db->escape($data['address']) ."', date_added = now(), status = 0";
+		$this->db->query($sql);
+	}	
 }

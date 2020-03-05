@@ -1,5 +1,5 @@
 <footer>
-    <div class="container" hidden="">
+    <!-- <div class="container" hidden="">
         <div class="row"> {% if informations %}
             <div class="col-sm-3">
                 <h5>{{ text_information }}</h5>
@@ -40,7 +40,7 @@
         {# <hr>
         <p>{{ powered }}</p> #}
     </div>
-    <div class="container">
+    <div class="container" hidden>
         <div class="row">
             <div class="col-md-6 text-center">
                 <h4>{{ name }}</h4>
@@ -52,14 +52,111 @@
                 <div class="fb-page" data-href="{{ fanpage }}" data-tabs="timeline" data-height="200" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="{{ fanpage }}" class="fb-xfbml-parse-ignore"><a href="{{ fanpage }}"></a></blockquote></div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="spacer30"></div>
     <div class="copyright">
         <div class="container text-center">
-            <p>Copyright © 2019. All rights reserved. Designed by QTS</p>
+            <p>Copyright © 2020. All rights reserved. Designed by MT</p>
         </div>
     </div>
 </footer>
+<div class="modal fade" id="modal_register">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row form-register" id="form-register1">
+                    <div class="col-md-6 col-12">
+                        <div class="form-group required">
+                            <label for="yourname1">Tên của bạn</label>
+                            <input type="text" class="form-control form-control-lg" id="yourname1" placeholder="Nhập tên của bạn"
+                                name="yourname1" required="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="form-group required">
+                            <label for="telephone1">Số điện thoại</label>
+                            <input type="text" class="form-control form-control-lg" id="telephone1" placeholder="Nhập số điện thoại"
+                                name="telephone1" required="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group required">
+                            <label for="identity_card1">CMDN</label>
+                            <input type="text" class="form-control form-control-lg" id="identity_card1" placeholder="Nhập CMDN"
+                                name="identity_card1" required="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group required">
+                            <label for="address1">Địa chỉ</label>
+                            <input type="text" class="form-control form-control-lg" id="address1" placeholder="Nhập địa chỉ"
+                                name="address1" required="">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="send_reghister1" class="btn btn-primary">Đăng ký</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#send_reghister1').click(function () {
+        var yourname1 = $('#yourname1').val();
+        var telephone1 = $('#telephone1').val();
+        var identity_card1 = $('#identity_card1').val();
+        var address1 = $('#address1').val();
+        $('#form-register1 .text-danger').remove();
+        $.ajax({
+            url: 'index.php?route=common/home/add_register',
+            type: 'post',
+            data: { yourname: yourname1, telephone: telephone1, identity_card: identity_card1, address: address1 },
+            dataType: 'json',
+            beforeSend: function () {
+                $('#send_reghister1').button('loading');
+            },
+            complete: function () {
+                $('#send_reghister1').button('reset');
+            },
+            success: function (json) {
+                if (json['error_yourname']) {
+                    $('#yourname1').after('<div class="text-danger">' + json['error_yourname'] + '</div>')
+                }
+                if (json['error_telephone']) {
+                    $('#telephone1').after('<div class="text-danger">' + json['error_telephone'] + '</div>')
+                }
+                if (json['error_identity_card']) {
+                    $('#identity_card1').after('<div class="text-danger">' + json['error_identity_card'] + '</div>')
+                }
+                if (json['error_address']) {
+                    $('#address1').after('<div class="text-danger">' + json['error_address'] + '</div>')
+                }
+
+                if (json['success']) {
+                    alert(json['success']);
+                    location.reload();
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
+</script>
 <script>
     window.fbAsyncInit = function() {
     FB.init({
