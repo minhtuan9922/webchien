@@ -151,7 +151,7 @@ class ModelAccountCustomer extends Model {
 	}	
 	public function add_register($data)
 	{
-		$sql = "insert into " . DB_PREFIX . "register set yourname = '". $this->db->escape($data['yourname']) ."', telephone = '". $this->db->escape($data['telephone']) ."', identity_card = '". $this->db->escape($data['identity_card']) ."', address = '". $this->db->escape($data['address']) ."', date_added = now(), status = 0";
+		$sql = "insert into " . DB_PREFIX . "customer set firstname = '". $this->db->escape($data['yourname']) ."', telephone = '". $this->db->escape($data['telephone']) ."', identity_card = '". $this->db->escape($data['identity_card']) ."', address = '". $this->db->escape($data['address']) ."', date_added = now(), status = 0, customer_group_id = 1, language_id = 2";
 		$this->db->query($sql);
 	}	
 }

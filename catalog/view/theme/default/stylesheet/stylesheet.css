@@ -1073,3 +1073,93 @@ footer .copyright p {
 	color: #000000;
 	font-weight: bold;
 }
+footer .group-icon {
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+}
+footer .group-icon img {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+}
+footer .group-icon a {
+	margin-left: 30px;
+	position: relative;
+	display: inline-block;
+	z-index: 2;
+}
+footer .group-icon a::after {
+	content: '';
+	width: 50px;
+    height: 50px;
+    top: -5px;
+    right: -5px;
+    position: absolute;
+    background-color: transparent;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    border: 2px solid rgba(17, 130, 252, .8);
+    opacity: .1;
+    border-color: #1182FC;
+	opacity: .5;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+	animation-name: zoomIn_zalo;
+	z-index: -1;
+}
+footer .group-icon a::before {
+	content: '';
+	width: 60px;
+    height: 60px;
+    top: -10px;
+    position: absolute;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    background-color: rgba(17, 130, 252, 0.45);
+    opacity: .75;
+	right: -10px;
+	animation-iteration-count: infinite;
+	-webkit-animation-name: pulse_zalo;
+	animation-name: pulse_zalo;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+	z-index: -1;
+}
+@keyframes pulse_zalo {
+	0% {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+	50% {
+		-webkit-transform: scale3d(1.05, 1.05, 1.05);
+		transform: scale3d(1.05, 1.05, 1.05);
+	}
+	100% {
+		-webkit-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1);
+	}
+}
+@keyframes zoomIn_zalo {
+	0% {
+		opacity: 0;
+		transform: scale3d(.3, .3, .3);
+	}
+	
+	50% {
+		opacity: 1;
+	}
+}

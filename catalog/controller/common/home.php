@@ -467,7 +467,33 @@ class ControllerCommonHome extends Controller {
         {
             $this->load->model('account/customer');
             $this->model_account_customer->add_register($this->request->post);
+            $store_email = $this->config->get('config_email');
+            $store_name = $this->config->get('config_name');
             $json['success'] = 'Gửi thông tin thành công.';
+
+            $message  = '<html dir="ltr" lang="en">' . "\n";
+            $message .= '  <head>' . "\n";
+            $message .= '    <title>Đăng ký vay</title>' . "\n";
+            $message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
+            $message .= '  </head>' . "\n";
+            $message .= '  <body><p>Họ tên: '. $yourname .'</p><p>Số điện thoại: '. $telephone .'</p><p>CMND: '. $identity_card.'</p><p>Địa chỉ thường trú: '. $address .'</p></body>' . "\n";
+            $message .= '</html>' . "\n";
+
+
+            $mail = new Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+            $mail->setTo('nguyenngocchien13021997@gmail.com');
+            $mail->setFrom($store_email);
+            $mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject($yourname. ' - Đăng ký vay');
+            $mail->setHtml($message);
+            $mail->send();
         }
 
         $this->response->addHeader('Content-Type: application/json');

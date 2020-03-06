@@ -278,13 +278,13 @@ class ControllerCustomerCustomer extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'name';
+			$sort = 'c.date_added';
 		}
 
 		if (isset($this->request->get['order'])) {
 			$order = $this->request->get['order'];
 		} else {
-			$order = 'ASC';
+			$order = 'DESC';
 		}
 
 		if (isset($this->request->get['page'])) {
@@ -395,6 +395,9 @@ class ControllerCustomerCustomer extends Controller {
 			$data['customers'][] = array(
 				'customer_id'    => $result['customer_id'],
 				'name'           => $result['name'],
+				'telephone'           => $result['telephone'],
+				'identity_card'           => $result['identity_card'],
+				'address'           => $result['address'],
 				'email'          => $result['email'],
 				'customer_group' => $result['customer_group'],
 				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
@@ -470,6 +473,9 @@ class ControllerCustomerCustomer extends Controller {
 		$data['sort_status'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.status' . $url, true);
 		$data['sort_ip'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.ip' . $url, true);
 		$data['sort_date_added'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.date_added' . $url, true);
+		$data['sort_telephone'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.telephone' . $url, true);
+		$data['sort_identity_card'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.identity_card' . $url, true);
+		$data['sort_address'] = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.address' . $url, true);
 
 		$url = '';
 
