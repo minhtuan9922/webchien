@@ -62,6 +62,15 @@ class ControllerCommonFooter extends Controller {
 			$this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
 		}
 
+		if(isset($this->session->data['status_register']))
+		{
+			$data['status_register'] = $this->session->data['status_register'];
+		}
+		else
+		{
+			$data['status_register'] = '';
+		}
+
 		$data['scripts'] = $this->document->getScripts('footer');
 		
 		return $this->load->view('common/footer', $data);

@@ -466,7 +466,12 @@ class ControllerCommonHome extends Controller {
         if(empty($json))
         {
             $this->load->model('account/customer');
-            $this->model_account_customer->add_register($this->request->post);
+            $id = $this->model_account_customer->add_register($this->request->post);
+            if(!empty($id))
+            {
+                $this->session->data['status_register'] = 1;
+            }
+            
             $store_email = $this->config->get('config_email');
             $store_name = $this->config->get('config_name');
             $json['success'] = 'Gửi thông tin thành công.';

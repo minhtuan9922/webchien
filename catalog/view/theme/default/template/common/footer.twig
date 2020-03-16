@@ -178,6 +178,12 @@
      js.src = "https://connect.facebook.net/vi_VN/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+
+   {% if status_register == '' %}
+   $(document).ready(function() {
+    $("#modal_register").modal("show");
+   });
+   {% endif %}
 </script>
 {% for script in scripts %} 
 <script src="{{ script }}" type="text/javascript"></script> 
